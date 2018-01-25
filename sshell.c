@@ -86,6 +86,7 @@ void cd_command(char** cmdWithArg)
         if(chdir(newPath) == -1)
         {
             fprintf(stderr, "Error: no such directory\n");
+            exit(1);
         }
     }
 }
@@ -282,7 +283,8 @@ int parseThenExecute(char *cmdl){
     }
     
     if(execvp(cmdWithArg[0], cmdWithArg)<0){
-        
+        fprintf(stderr, "Error: command not found\n");
+        exit(1);
     }
     return 0;
 };
