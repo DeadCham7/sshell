@@ -43,9 +43,14 @@ function, there were duplicate outputs. To remedy this we included a conditional
 before calling *execvp()* to *exit(0)* if the user input is pwd.
 
 ###Phase 5
-
+This part started out with checking if the command has '<' character. 
+If found, command after the character will be deleted after trim excess whitespaces
+and extracting filename. Then, file descriptor will be assigned to 0 replacing stdin.
+After that, trimmed cmdl without filename can be executed like regular command. 
 
 ###Phase 6
+This part was very similar to input redir except the character was '>' and file descripter
+was assigned to 1 instead of 0.
 
 
 ###Phase 7
@@ -55,5 +60,13 @@ to *phase 3* and then passed each tokenized string into our *parseThenExecute()*
 function to parse each string further according to whitespace. 
 
 ###Phase 8
+Shell will check if command has & at the end and if so, parent process will put command, pid in to struct daemonCom and put demonCom into struct backGroundProcessList making a list. then using waitpid WNOHANG it will let the parent to keep on going without waiting while child process is contining to finish and same two line will check every other parent process loop.
 
+##Sources
+<https://www.gnu.org/software/libc/manual/html_node/Creating-a-Pipe.html>
+<https://www.tutorialspoint.com/c_standard_library/c_function_strchr.htm>
+<http://man7.org/linux/man-pages/man2/fchdir.2.html>
+<https://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm>
+<https://stackoverflow.com/questions/27541910/how-to-use-execvp>
+<https://piazza.com/class/j8kqgfgmvtg2uu?cid=175>
 
